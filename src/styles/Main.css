@@ -44,4 +44,18 @@ main > section {
 
 section#side-menu {
   flex: 0 0 15%;
+  position: relative;
+}
+
+section#side-menu ul {
+  list-style-type: none;
+}
+
+section#side-menu li {
+  margin-bottom: 1rem;
+}
+
+section#side-menu #new-note {
+  position: absolute;
+  bottom: 0;
 }
