@@ -1,5 +1,15 @@
+import Header from './components/Header'
+import Main from './components/Main'
+import Footer from './components/Footer'
+
 function App() {
-  return <h1>Daily Note by Madyan Eka Septian</h1>
+  return (
+    <>
+      <Header />
+      <Main />
+      <Footer />
+    </>
+  )
 }
 
 export default App
