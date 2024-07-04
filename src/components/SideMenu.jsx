@@ -1,13 +1,15 @@
+import { Link } from 'react-router-dom'
+
 export default function SideMenu() {
   return (
     <section id='side-menu'>
       <nav>
         <ul>
           <li>
-            <a href='#'>My Notes</a>
+            <Link to={'/'}>My Notes</Link>
           </li>
           <li id='new-note'>
-            <a href='#'>New Note</a>
+            <Link to={'/new'}>New Note</Link>
           </li>
         </ul>
       </nav>
