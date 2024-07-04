@@ -31,4 +31,17 @@ footer p {
 main {
   padding: 3vh 5vh;
   min-height: calc(100vh - 20vh);
+
+  display: flex;
+  gap: 20px;
+}
+
+main > section {
+  border: 1px solid;
+  padding: 1rem;
+  flex: 1;
+}
+
+section#side-menu {
+  flex: 0 0 15%;
 }
