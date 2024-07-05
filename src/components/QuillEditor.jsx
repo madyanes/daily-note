@@ -11,6 +11,27 @@ export default function QuillEditor() {
   const quillInstance = useRef(null)
   const noteStoreRef = useRef(null)
 
+  const handleSave = async () => {
+    if (quillInstance.current) {
+      const key = `note_${Date.now()}`
+      const note = quillInstance.current.root.innerHTML
+      const metadata = {
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
+      }
+
+      const data = { note, metadata }
+
+      try {
+        await noteStoreRef.current.setItem(key, data)
+      } catch (error) {
+        console.error(
+          `Error saving note to ${store.notes.storeName} store. Error: ${error}`
+        )
+      }
+    }
+  }
+
   useEffect(() => {
     const initializeQuill = () => {
       if (!quillInstance.current && quillRef.current) {
@@ -31,7 +52,9 @@ export default function QuillEditor() {
   return (
     <>
       <div ref={quillRef} style={{ height: '50vh' }} />
-      <button id='save-note'>Save</button>
+      <button id='save-note' onClick={handleSave}>
+        Save
+      </button>
     </>
   )
 }
