@@ -3,21 +3,19 @@ import Quill from 'quill'
 import 'quill/dist/quill.snow.css'
 
 export default function QuillEditor() {
-  const editorRef = useRef(null)
-  const quillRef = useRef(null) // Ref untuk menyimpan instance Quill
+  const quillRef = useRef(null)
+  const quillInstance = useRef(null)
 
   useEffect(() => {
-    if (editorRef.current && !quillRef.current) {
-      quillRef.current = new Quill(editorRef.current, {
-        theme: 'snow',
-      })
-
-      // Event listener untuk mendapatkan konten editor
-      quillRef.current.on('text-change', () => {
-        console.log(quillRef.current.root.innerHTML)
-      })
+    if (!quillInstance.current && quillRef.current) {
+      quillInstance.current = new Quill(quillRef.current, { theme: 'snow' })
     }
-  }, []) // Hanya menjalankan effect ini sekali setelah komponen dipasang
+  }, [])
 
-  return <div ref={editorRef} style={{ height: '300px' }} />
+  return (
+    <>
+      <div ref={quillRef} style={{ height: '50vh' }} />
+      <button id='save-note'>Save</button>
+    </>
+  )
 }
