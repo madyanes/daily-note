@@ -1,3 +1,5 @@
+import localforage from 'localforage'
+
 const dbName = 'daily-note'
 
 export const store = {
@@ -7,3 +9,5 @@ export const store = {
     description: 'This store saves daily notes',
   },
 }
+
+export const notesStore = localforage.createInstance(store.notes)

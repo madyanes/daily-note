@@ -1,10 +1,9 @@
 import { useEffect, useRef } from 'react'
 import Quill from 'quill'
-import localforage from 'localforage'
 
 import 'quill/dist/quill.snow.css'
 
-import { store } from '../utils/dbConfig'
+import { notesStore } from '../utils/dbConfig'
 
 export default function QuillEditor() {
   const quillRef = useRef(null)
@@ -26,7 +25,7 @@ export default function QuillEditor() {
         await noteStoreRef.current.setItem(key, data)
       } catch (error) {
         console.error(
-          `Error saving note to ${store.notes.storeName} store. Error: ${error}`
+          `Error saving note to ${notesStore.storeName} store. Error: ${error}`
         )
       }
     }
@@ -41,7 +40,7 @@ export default function QuillEditor() {
 
     const initializeStores = () => {
       if (!noteStoreRef.current) {
-        noteStoreRef.current = localforage.createInstance(store.notes)
+        noteStoreRef.current = notesStore
       }
     }
 

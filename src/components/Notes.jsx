@@ -1,9 +1,6 @@
 import { useEffect, useState } from 'react'
-import localforage from 'localforage'
 
-import { store } from '../utils/dbConfig'
-
-const notesStore = localforage.createInstance(store.notes)
+import { notesStore } from '../utils/dbConfig'
 
 export default function Notes() {
   const [notes, setNotes] = useState(new Array())
