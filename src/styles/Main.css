@@ -59,3 +59,7 @@ section#side-menu #new-note {
   position: absolute;
   bottom: 0;
 }
+
+section > h1 {
+  margin-bottom: 1rem;
+}

@@ -1,0 +1,10 @@
+.notes {
+  border: 1px solid;
+  margin-bottom: 1rem;
+  padding: 1rem;
+  line-height: 1.75rem;
+}
+
+.no-notes {
+  color: red;
+}
