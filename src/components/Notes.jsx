@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react'
 
 import { notesStore } from '../utils/dbConfig'
 
+import '../styles/Notes.css'
+
 export default function Notes() {
   const [notes, setNotes] = useState(new Array())
 
@@ -30,17 +32,20 @@ export default function Notes() {
   return (
     <>
       <h1>Notes</h1>
-      {notes ? (
+      {notes.length ? (
         notes.map((note) => {
           return (
             <article
               key={note.id}
               dangerouslySetInnerHTML={{ __html: note.note }}
+              className='notes'
             />
           )
         })
       ) : (
-        <p>No notes available</p>
+        <article className='notes no-notes'>
+          <p>No notes available</p>
+        </article>
       )}
     </>
   )
