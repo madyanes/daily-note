@@ -1,0 +1,8 @@
+.controls-note {
+  border: 1px solid;
+  padding: 0.5rem;
+
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+}
