@@ -6,6 +6,7 @@ import App from './App.jsx'
 import Error from './components/Error.jsx'
 import Notes from './components/Notes.jsx'
 import NewNote from './components/NewNote.jsx'
+import NoteDetail from './components/NoteDetail.jsx'
 
 const router = createBrowserRouter([
   {
@@ -20,6 +21,10 @@ const router = createBrowserRouter([
       {
         path: 'new',
         element: <NewNote />,
+      },
+      {
+        path: ':noteId',
+        element: <NoteDetail />,
       },
     ],
   },

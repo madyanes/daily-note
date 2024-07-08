@@ -1,5 +1,10 @@
 import { notesStore } from './dbConfig'
 
+export const getNoteById = async (noteId) => {
+  const note = await notesStore.getItem(noteId)
+  return note
+}
+
 export const addNote = async (note) => {
   const key = `note_${Date.now()}`
   const metadata = {

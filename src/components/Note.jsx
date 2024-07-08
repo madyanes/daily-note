@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import { TfiTrash, TfiPencilAlt, TfiArchive } from 'react-icons/tfi'
 
@@ -9,7 +10,9 @@ export default function Note({ note, handleDeleteNote }) {
       <div className='wrapper-note'>
         <div className='note-metadata'>
           <div className='note-id'>
-            <small>ID: {note.id}</small>
+            <Link to={note.id}>
+              <small>ID: {note.id}</small>
+            </Link>
           </div>
           <div className='controls-note'>
             <button>
