@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react'
+import { useNavigate } from 'react-router-dom'
 import Quill from 'quill'
 
 import 'quill/dist/quill.snow.css'
@@ -9,6 +10,7 @@ export default function QuillEditor() {
   const quillRef = useRef(null)
   const quillInstance = useRef(null)
   const noteStoreRef = useRef(null)
+  const navigate = useNavigate()
 
   const handleSave = async () => {
     if (quillInstance.current) {
@@ -23,6 +25,7 @@ export default function QuillEditor() {
 
       try {
         await noteStoreRef.current.setItem(key, data)
+        navigate('/')
       } catch (error) {
         console.error(
           `Error saving note to ${notesStore.storeName} store. Error: ${error}`
