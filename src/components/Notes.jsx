@@ -35,6 +35,7 @@ export default function Notes() {
     console.log('clicked')
     try {
       await deleteNoteById(noteId)
+      setNotes((prevNotes) => prevNotes.filter((note) => note.id !== noteId))
     } catch (error) {
       console.error('Gagal hapus catatan:', error)
     }
