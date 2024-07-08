@@ -18,7 +18,9 @@
 
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: stretch;
+  gap: 0.5rem;
+  padding-left: 1rem;
 }
 
 #note-metadata {
