@@ -2,7 +2,7 @@ import { TfiTrash, TfiPencilAlt, TfiArchive } from 'react-icons/tfi'
 
 import '../styles/Note.css'
 
-export default function Note({ note }) {
+export default function Note({ note, handleDeleteNote }) {
   return (
     <>
       <div className='wrapper-note'>
@@ -13,7 +13,7 @@ export default function Note({ note }) {
           <button>
             <TfiPencilAlt className='control-update-icon' />
           </button>
-          <button>
+          <button onClick={() => handleDeleteNote(note.id)}>
             <TfiTrash className='control-delete-icon' />
           </button>
         </div>

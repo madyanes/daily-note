@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 
+import { deleteNoteById } from '../utils/localforageHelpers'
 import { notesStore } from '../utils/dbConfig'
 import Note from './Note'
 
@@ -30,12 +31,27 @@ export default function Notes() {
     return notes
   }
 
+  const handleDeleteNote = async (noteId) => {
+    console.log('clicked')
+    try {
+      await deleteNoteById(noteId)
+    } catch (error) {
+      console.error('Gagal hapus catatan:', error)
+    }
+  }
+
   return (
     <>
       <h1>Notes</h1>
       {notes.length ? (
         notes.map((note) => {
-          return <Note key={note.id} note={note} />
+          return (
+            <Note
+              key={note.id}
+              note={note}
+              handleDeleteNote={handleDeleteNote}
+            />
+          )
         })
       ) : (
         <article className='notes no-notes'>
