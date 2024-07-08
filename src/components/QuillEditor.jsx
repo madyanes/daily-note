@@ -4,32 +4,20 @@ import Quill from 'quill'
 
 import 'quill/dist/quill.snow.css'
 
-import { notesStore } from '../utils/dbConfig'
+import { addNote } from '../utils/localforageHelpers'
 
 export default function QuillEditor() {
   const quillRef = useRef(null)
   const quillInstance = useRef(null)
-  const noteStoreRef = useRef(null)
   const navigate = useNavigate()
 
   const handleSave = async () => {
     if (quillInstance.current) {
-      const key = `note_${Date.now()}`
       const note = quillInstance.current.root.innerHTML
-      const metadata = {
-        createdAt: new Date().toISOString(),
-        updatedAt: new Date().toISOString(),
-      }
+      const result = await addNote(note)
 
-      const data = { note, metadata }
-
-      try {
-        await noteStoreRef.current.setItem(key, data)
+      if (result.success) {
         navigate('/')
-      } catch (error) {
-        console.error(
-          `Error saving note to ${notesStore.storeName} store. Error: ${error}`
-        )
       }
     }
   }
@@ -41,14 +29,7 @@ export default function QuillEditor() {
       }
     }
 
-    const initializeStores = () => {
-      if (!noteStoreRef.current) {
-        noteStoreRef.current = notesStore
-      }
-    }
-
     initializeQuill()
-    initializeStores()
   }, [])
 
   return (
