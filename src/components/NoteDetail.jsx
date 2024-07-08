@@ -3,6 +3,8 @@ import { useParams } from 'react-router-dom'
 
 import { getNoteById } from '../utils/localforageHelpers'
 
+import '../styles/NoteDetail.css'
+
 export default function NoteDetail() {
   const { noteId } = useParams()
   const [note, setNote] = useState(null)
@@ -33,7 +35,23 @@ export default function NoteDetail() {
 
   return (
     <>
-      <article dangerouslySetInnerHTML={{ __html: note.note }} />
+      <div id='note-metadata'>
+        <small>
+          Created at {new Date(note.metadata.createdAt).toLocaleString()}
+        </small>
+        <small>ID: {noteId}</small>
+        <small>
+          Last modifiet at {new Date(note.metadata.updatedAt).toLocaleString()}
+        </small>
+      </div>
+      <div id='content'>
+        <article dangerouslySetInnerHTML={{ __html: note.note }} />
+        <aside>
+          <button>Edit</button>
+          <button>Archive</button>
+          <button>Delete</button>
+        </aside>
+      </div>
     </>
   )
 }
