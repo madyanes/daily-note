@@ -44,7 +44,9 @@ main > section {
 
 section#side-menu {
   flex: 0 0 15%;
-  position: relative;
+  position: sticky;
+  top: 1rem;
+  height: 400px;
 }
 
 section#side-menu ul {
