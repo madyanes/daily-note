@@ -1,8 +1,11 @@
-.controls-note {
+.note-metadata {
+  display: flex;
+  justify-content: space-between;
   border: 1px solid;
   padding: 0.5rem;
+}
 
+.controls-note {
   display: flex;
-  justify-content: flex-end;
   gap: 0.5rem;
 }

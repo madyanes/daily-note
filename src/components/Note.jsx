@@ -7,16 +7,21 @@ export default function Note({ note, handleDeleteNote }) {
   return (
     <>
       <div className='wrapper-note'>
-        <div className='controls-note'>
-          <button>
-            <TfiArchive className='control-archive-icon' />
-          </button>
-          <button>
-            <TfiPencilAlt className='control-update-icon' />
-          </button>
-          <button onClick={() => handleDeleteNote(note.id)}>
-            <TfiTrash className='control-delete-icon' />
-          </button>
+        <div className='note-metadata'>
+          <div className='note-id'>
+            <small>ID: {note.id}</small>
+          </div>
+          <div className='controls-note'>
+            <button>
+              <TfiArchive className='control-archive-icon' />
+            </button>
+            <button>
+              <TfiPencilAlt className='control-update-icon' />
+            </button>
+            <button onClick={() => handleDeleteNote(note.id)}>
+              <TfiTrash className='control-delete-icon' />
+            </button>
+          </div>
         </div>
         <article
           dangerouslySetInnerHTML={{ __html: note.note }}
