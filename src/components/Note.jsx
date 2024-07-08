@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import { TfiTrash, TfiPencilAlt, TfiArchive } from 'react-icons/tfi'
 
 import '../styles/Note.css'
@@ -24,4 +25,12 @@ export default function Note({ note, handleDeleteNote }) {
       </div>
     </>
   )
+}
+
+Note.propTypes = {
+  note: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    note: PropTypes.string.isRequired,
+  }).isRequired,
+  handleDeleteNote: PropTypes.func.isRequired,
 }
