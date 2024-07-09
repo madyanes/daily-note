@@ -41,7 +41,7 @@ export default function NoteDetail() {
         </small>
         <small>ID: {noteId}</small>
         <small>
-          Last modifiet at {new Date(note.metadata.updatedAt).toLocaleString()}
+          Last modified at {new Date(note.metadata.updatedAt).toLocaleString()}
         </small>
       </div>
       <div id='content'>
