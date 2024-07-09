@@ -27,3 +27,29 @@ export const addNote = async (note) => {
 export const deleteNoteById = async (noteId) => {
   await notesStore.removeItem(noteId)
 }
+
+export const updateNoteById = async (noteId, updatedNote) => {
+  try {
+    const existingNote = await notesStore.getItem(noteId)
+
+    if (!existingNote) {
+      return { success: false, error: 'Note not found.' }
+    }
+
+    const updatedData = {
+      ...existingNote,
+      note: updatedNote,
+      metadata: {
+        ...existingNote.metadata,
+        updatedAt: new Date().toISOString(),
+      },
+    }
+
+    await notesStore.setItem(noteId, updatedData)
+    return { success: true }
+  } catch (error) {
+    console.error(
+      `Error updating note in ${notesStore.storeName} store. Error: ${error}`
+    )
+  }
+}

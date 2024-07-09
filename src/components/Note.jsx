@@ -18,9 +18,11 @@ export default function Note({ note, handleDeleteNote }) {
             <button>
               <TfiArchive className='control-archive-icon' />
             </button>
-            <button>
-              <TfiPencilAlt className='control-update-icon' />
-            </button>
+            <Link to={`${note.id}/edit`}>
+              <button>
+                <TfiPencilAlt className='control-update-icon' />
+              </button>
+            </Link>
             <button onClick={() => handleDeleteNote(note.id)}>
               <TfiTrash className='control-delete-icon' />
             </button>

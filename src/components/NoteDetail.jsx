@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 
 import { getNoteById } from '../utils/localforageHelpers'
 
@@ -47,7 +47,9 @@ export default function NoteDetail() {
       <div id='content'>
         <article dangerouslySetInnerHTML={{ __html: note.note }} />
         <aside>
-          <button>Edit</button>
+          <Link to={`/${noteId}/edit`}>
+            <button>Edit</button>
+          </Link>
           <button>Archive</button>
           <button>Delete</button>
         </aside>
