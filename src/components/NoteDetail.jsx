@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Link, useParams } from 'react-router-dom'
 
-import { getNoteById } from '../utils/localforageHelpers'
+import { getNoteById, archiveUnarchiveNote } from '../utils/localforageHelpers'
 
 import '../styles/NoteDetail.css'
 
@@ -9,6 +9,16 @@ export default function NoteDetail() {
   const { noteId } = useParams()
   const [note, setNote] = useState(null)
   const [loading, setLoading] = useState(true)
+
+  const handleArchiveNote = async () => {
+    try {
+      await archiveUnarchiveNote(noteId)
+      const updatedNote = await getNoteById(noteId)
+      setNote(updatedNote)
+    } catch (error) {
+      console.error('Failed to archive/unarchive note:', error)
+    }
+  }
 
   useEffect(() => {
     const fetchNote = async () => {
@@ -50,7 +60,9 @@ export default function NoteDetail() {
           <Link to={`/${noteId}/edit`}>
             <button>Edit</button>
           </Link>
-          <button>Archive</button>
+          <button onClick={() => handleArchiveNote(noteId)}>
+            {!note.metadata.isArchived ? 'Archive' : 'Unarchive'}
+          </button>
           <button>Delete</button>
         </aside>
       </div>

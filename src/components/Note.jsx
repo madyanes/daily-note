@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
-import { TfiTrash, TfiPencilAlt, TfiArchive } from 'react-icons/tfi'
+import { TfiTrash, TfiPencilAlt, TfiArchive, TfiBook } from 'react-icons/tfi'
 
 import '../styles/Note.css'
 
@@ -16,7 +16,11 @@ export default function Note({ note, handleArchiveNote, handleDeleteNote }) {
           </div>
           <div className='controls-note'>
             <button onClick={() => handleArchiveNote(note.id)}>
-              <TfiArchive className='control-archive-icon' />
+              {!note.metadata.isArchived ? (
+                <TfiArchive className='control-archive-icon' />
+              ) : (
+                <TfiBook className='control-archive-icon' />
+              )}
             </button>
             <Link to={`/${note.id}/edit`}>
               <button>
@@ -41,6 +45,9 @@ Note.propTypes = {
   note: PropTypes.shape({
     id: PropTypes.string.isRequired,
     note: PropTypes.string.isRequired,
+    metadata: PropTypes.shape({
+      isArchived: PropTypes.bool.isRequired,
+    }),
   }).isRequired,
   handleArchiveNote: PropTypes.func.isRequired,
   handleDeleteNote: PropTypes.func.isRequired,
