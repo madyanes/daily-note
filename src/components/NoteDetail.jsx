@@ -74,7 +74,7 @@ export default function NoteDetail() {
           <Link to={`/${noteId}/edit`}>
             <button>Edit</button>
           </Link>
-          <button onClick={() => handleArchiveNote(noteId)}>
+          <button onClick={handleArchiveNote}>
             {!note.metadata.isArchived ? 'Archive' : 'Unarchive'}
           </button>
           <button onClick={handleDeleteNote}>Delete</button>
