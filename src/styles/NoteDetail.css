@@ -14,6 +14,7 @@ button {
 
 #content > article {
   flex: 5;
+  line-height: 1.75rem;
 }
 
 #content > aside {

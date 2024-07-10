@@ -51,6 +51,7 @@ section#side-menu {
 
 section#side-menu ul {
   list-style-type: none;
+  padding: 0;
 }
 
 section#side-menu li {
