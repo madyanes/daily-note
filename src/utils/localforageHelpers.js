@@ -7,10 +7,11 @@ export const getNoteById = async (noteId) => {
 
 export const addNote = async (note) => {
   const key = `note_${Date.now()}`
+  const date = new Date().toISOString()
   const metadata = {
     isArchived: false,
-    createdAt: new Date().toISOString(),
-    updatedAt: new Date().toISOString(),
+    createdAt: date,
+    updatedAt: date,
   }
   const data = { note, metadata }
 
