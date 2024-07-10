@@ -1,8 +1,29 @@
-# React + Vite
+# Daily Note
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A note taking app, build with React.
 
-Currently, two official plugins are available:
+This project does not focus on the beauty of the user interface, but more on the technical side of programming using React and React Router.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features
+
+- Using indexedDB as a local database
+- Create, edit, delete notes
+- Archive / unarchive notes
+
+## Run Locally
+
+Install the module dependencies first.
+
+```txt
+bun i
+```
+
+Run the server
+
+```txt
+bun run dev
+```
+
+## Screenshots
+
+![Screenshot of Quill editor](./screenshots/ss-editor.png 'Quill Editor')
