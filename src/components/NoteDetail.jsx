@@ -1,11 +1,16 @@
 import { useState, useEffect } from 'react'
-import { Link, useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 
-import { getNoteById, archiveUnarchiveNote } from '../utils/localforageHelpers'
+import {
+  getNoteById,
+  archiveUnarchiveNote,
+  deleteNoteById,
+} from '../utils/localforageHelpers'
 
 import '../styles/NoteDetail.css'
 
 export default function NoteDetail() {
+  const navigate = useNavigate()
   const { noteId } = useParams()
   const [note, setNote] = useState(null)
   const [loading, setLoading] = useState(true)
@@ -17,6 +22,15 @@ export default function NoteDetail() {
       setNote(updatedNote)
     } catch (error) {
       console.error('Failed to archive/unarchive note:', error)
+    }
+  }
+
+  const handleDeleteNote = async () => {
+    try {
+      await deleteNoteById(noteId)
+      navigate('/')
+    } catch (error) {
+      console.error('Failed to delete note:', error)
     }
   }
 
@@ -63,7 +77,7 @@ export default function NoteDetail() {
           <button onClick={() => handleArchiveNote(noteId)}>
             {!note.metadata.isArchived ? 'Archive' : 'Unarchive'}
           </button>
-          <button>Delete</button>
+          <button onClick={handleDeleteNote}>Delete</button>
         </aside>
       </div>
     </>
