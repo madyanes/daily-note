@@ -10,6 +10,10 @@ This project does not focus on the beauty of the user interface, but more on the
 - Create, edit, delete notes
 - Archive / unarchive notes
 
+## Try It Online
+
+Visit [here](https://daily-note-psi.vercel.app/).
+
 ## Run Locally
 
 Install the module dependencies first.
