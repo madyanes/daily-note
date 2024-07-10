@@ -57,7 +57,7 @@ export default function Notes({ isArchived }) {
 
   return (
     <>
-      <h1>Notes</h1>
+      <h1>{!isArchived ? 'Notes' : 'Archived Notes'}</h1>
       {notes.length ? (
         notes.map((note) => {
           return (
@@ -71,7 +71,7 @@ export default function Notes({ isArchived }) {
         })
       ) : (
         <article className='notes no-notes'>
-          <p>No notes available</p>
+          <p>No {!isArchived ? 'notes' : 'archived notes'} available</p>
         </article>
       )}
     </>
