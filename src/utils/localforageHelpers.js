@@ -8,6 +8,7 @@ export const getNoteById = async (noteId) => {
 export const addNote = async (note) => {
   const key = `note_${Date.now()}`
   const metadata = {
+    isArchived: false,
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),
   }
@@ -26,6 +27,21 @@ export const addNote = async (note) => {
 
 export const deleteNoteById = async (noteId) => {
   await notesStore.removeItem(noteId)
+}
+
+export const archiveUnarchiveNote = async (noteId) => {
+  try {
+    const note = await notesStore.getItem(noteId)
+
+    if (note) {
+      note.metadata.isArchived = !note.metadata.isArchived
+      await notesStore.setItem(noteId, note)
+    } else {
+      console.log(`Note with ID ${noteId} not found.`)
+    }
+  } catch (error) {
+    console.log('Error archiving/unarchiving note:', error)
+  }
 }
 
 export const updateNoteById = async (noteId, updatedNote) => {

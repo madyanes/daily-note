@@ -4,21 +4,21 @@ import { TfiTrash, TfiPencilAlt, TfiArchive } from 'react-icons/tfi'
 
 import '../styles/Note.css'
 
-export default function Note({ note, handleDeleteNote }) {
+export default function Note({ note, handleArchiveNote, handleDeleteNote }) {
   return (
     <>
       <div className='wrapper-note'>
         <div className='note-metadata'>
           <div className='note-id'>
-            <Link to={note.id}>
+            <Link to={`/${note.id}`}>
               <small>ID: {note.id}</small>
             </Link>
           </div>
           <div className='controls-note'>
-            <button>
+            <button onClick={() => handleArchiveNote(note.id)}>
               <TfiArchive className='control-archive-icon' />
             </button>
-            <Link to={`${note.id}/edit`}>
+            <Link to={`/${note.id}/edit`}>
               <button>
                 <TfiPencilAlt className='control-update-icon' />
               </button>
@@ -42,5 +42,6 @@ Note.propTypes = {
     id: PropTypes.string.isRequired,
     note: PropTypes.string.isRequired,
   }).isRequired,
+  handleArchiveNote: PropTypes.func.isRequired,
   handleDeleteNote: PropTypes.func.isRequired,
 }

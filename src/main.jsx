@@ -19,6 +19,10 @@ const router = createBrowserRouter([
         element: <Notes />,
       },
       {
+        path: 'archives',
+        element: <Notes isArchived={true} />,
+      },
+      {
         path: 'new',
         element: <NewNote />,
       },

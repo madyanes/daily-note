@@ -1,22 +1,31 @@
 import { useEffect, useState } from 'react'
+import PropTypes from 'prop-types'
 
-import { deleteNoteById } from '../utils/localforageHelpers'
+import {
+  archiveUnarchiveNote,
+  deleteNoteById,
+} from '../utils/localforageHelpers'
 import { notesStore } from '../utils/dbConfig'
 import Note from './Note'
 
 import '../styles/Notes.css'
 
-export default function Notes() {
+export default function Notes({ isArchived }) {
   const [notes, setNotes] = useState(new Array())
 
   useEffect(() => {
     const fetchNotes = async () => {
-      const allNotes = await getAllNotes()
+      let allNotes = await getAllNotes()
+      if (isArchived) {
+        allNotes = allNotes.filter((note) => note.metadata.isArchived)
+      } else {
+        allNotes = allNotes.filter((note) => !note.metadata.isArchived)
+      }
       setNotes(allNotes)
     }
 
     fetchNotes()
-  }, [])
+  }, [isArchived])
 
   const getAllNotes = async () => {
     const notes = new Array()
@@ -29,6 +38,11 @@ export default function Notes() {
     })
 
     return notes
+  }
+
+  const handleArchiveNote = async (noteId) => {
+    await archiveUnarchiveNote(noteId)
+    setNotes((prevNotes) => prevNotes.filter((note) => note.id !== noteId))
   }
 
   const handleDeleteNote = async (noteId) => {
@@ -50,6 +64,7 @@ export default function Notes() {
             <Note
               key={note.id}
               note={note}
+              handleArchiveNote={handleArchiveNote}
               handleDeleteNote={handleDeleteNote}
             />
           )
@@ -61,4 +76,8 @@ export default function Notes() {
       )}
     </>
   )
+}
+
+Notes.propTypes = {
+  isArchived: PropTypes.bool,
 }

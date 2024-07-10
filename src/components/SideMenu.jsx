@@ -8,6 +8,9 @@ export default function SideMenu() {
           <li>
             <Link to={'/'}>My Notes</Link>
           </li>
+          <li>
+            <Link to={'/archives'}>Archived Notes</Link>
+          </li>
           <li id='new-note'>
             <Link to={'/new'}>New Note</Link>
           </li>
