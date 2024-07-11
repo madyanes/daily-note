@@ -1,51 +1,28 @@
 import { useEffect, useState } from 'react'
+import { useLoaderData } from 'react-router-dom'
 import PropTypes from 'prop-types'
 
 import {
   archiveUnarchiveNote,
   deleteNoteById,
 } from '../utils/localforageHelpers'
-import { notesStore } from '../utils/dbConfig'
 import Note from './Note'
 
 import '../styles/Notes.css'
 
 export default function Notes({ isArchived }) {
-  const [notes, setNotes] = useState(new Array())
+  const allNotes = useLoaderData()
+  const [notes, setNotes] = useState(allNotes)
 
   useEffect(() => {
-    const fetchNotes = async () => {
-      let allNotes = await getAllNotes()
+    if (allNotes) {
       if (isArchived) {
-        allNotes = allNotes.filter((note) => note.metadata.isArchived)
+        setNotes(allNotes.filter((note) => note.metadata.isArchived))
       } else {
-        allNotes = allNotes.filter((note) => !note.metadata.isArchived)
+        setNotes(allNotes.filter((note) => !note.metadata.isArchived))
       }
-
-      // Sort notes by updatedAt in descending order (newest first)
-      allNotes.sort(
-        (a, b) =>
-          new Date(b.metadata.updatedAt) - new Date(a.metadata.updatedAt)
-      )
-
-      setNotes(allNotes)
     }
-
-    fetchNotes()
-  }, [isArchived])
-
-  const getAllNotes = async () => {
-    const notes = new Array()
-
-    await notesStore.iterate((value, key) => {
-      notes.push({
-        id: key,
-        ...value,
-      })
-    })
-
-    return notes
-  }
+  }, [isArchived, allNotes])
 
   const handleArchiveNote = async (noteId) => {
     await archiveUnarchiveNote(noteId)
@@ -65,7 +42,7 @@ export default function Notes({ isArchived }) {
   return (
     <>
       <h1>{!isArchived ? 'Notes' : 'Archived Notes'}</h1>
-      {notes.length ? (
+      {notes && notes.length ? (
         notes.map((note) => {
           return (
             <Note

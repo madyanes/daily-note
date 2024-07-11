@@ -1,5 +1,23 @@
 import { notesStore } from './dbConfig'
 
+export const getAllNotes = async () => {
+  const notes = new Array()
+
+  await notesStore.iterate((value, key) => {
+    notes.push({
+      id: key,
+      ...value,
+    })
+  })
+
+  // Sort notes by updatedAt in descending order (newest first)
+  notes.sort(
+    (a, b) => new Date(b.metadata.updatedAt) - new Date(a.metadata.updatedAt)
+  )
+
+  return notes
+}
+
 export const getNoteById = async (noteId) => {
   const note = await notesStore.getItem(noteId)
   return note

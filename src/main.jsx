@@ -7,6 +7,7 @@ import Error from './components/Error.jsx'
 import Notes from './components/Notes.jsx'
 import NewNote from './components/NewNote.jsx'
 import NoteDetail from './components/NoteDetail.jsx'
+import { getAllNotes } from './utils/localforageHelpers.js'
 
 const router = createBrowserRouter([
   {
@@ -17,10 +18,12 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <Notes />,
+        loader: getAllNotes,
       },
       {
         path: 'archives',
         element: <Notes isArchived={true} />,
+        loader: getAllNotes,
       },
       {
         path: 'new',
