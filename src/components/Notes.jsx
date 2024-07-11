@@ -21,6 +21,13 @@ export default function Notes({ isArchived }) {
       } else {
         allNotes = allNotes.filter((note) => !note.metadata.isArchived)
       }
+
+      // Sort notes by updatedAt in descending order (newest first)
+      allNotes.sort(
+        (a, b) =>
+          new Date(b.metadata.updatedAt) - new Date(a.metadata.updatedAt)
+      )
+
       setNotes(allNotes)
     }
 
