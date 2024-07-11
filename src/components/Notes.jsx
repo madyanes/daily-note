@@ -15,12 +15,10 @@ export default function Notes({ isArchived }) {
   const [notes, setNotes] = useState(allNotes)
 
   useEffect(() => {
-    if (allNotes) {
-      if (isArchived) {
-        setNotes(allNotes.filter((note) => note.metadata.isArchived))
-      } else {
-        setNotes(allNotes.filter((note) => !note.metadata.isArchived))
-      }
+    if (isArchived) {
+      setNotes(allNotes.filter((note) => note.metadata.isArchived))
+    } else {
+      setNotes(allNotes.filter((note) => !note.metadata.isArchived))
     }
   }, [isArchived, allNotes])
 
@@ -42,7 +40,7 @@ export default function Notes({ isArchived }) {
   return (
     <>
       <h1>{!isArchived ? 'Notes' : 'Archived Notes'}</h1>
-      {notes && notes.length ? (
+      {notes.length ? (
         notes.map((note) => {
           return (
             <Note
