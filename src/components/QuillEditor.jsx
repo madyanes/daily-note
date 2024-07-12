@@ -1,27 +1,24 @@
 import { useEffect, useRef } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import Quill from 'quill'
 
 import 'quill/dist/quill.snow.css'
 
-import {
-  addNote,
-  getNoteById,
-  updateNoteById,
-} from '../utils/localforageHelpers'
+import { addNote, updateNoteById } from '../utils/localforageHelpers'
 
-export default function QuillEditor({ noteId }) {
+export default function QuillEditor({ existingNote }) {
   const quillRef = useRef(null)
   const quillInstance = useRef(null)
   const navigate = useNavigate()
+  const { noteId } = useParams()
 
   const handleSave = async () => {
     if (quillInstance.current) {
       const note = quillInstance.current.root.innerHTML
       let result
 
-      if (noteId) {
+      if (existingNote) {
         result = await updateNoteById(noteId, note)
       } else {
         result = await addNote(note)
@@ -38,17 +35,14 @@ export default function QuillEditor({ noteId }) {
       if (!quillInstance.current && quillRef.current) {
         quillInstance.current = new Quill(quillRef.current, { theme: 'snow' })
 
-        if (noteId) {
-          const existingNote = await getNoteById(noteId)
-          if (existingNote) {
-            quillInstance.current.root.innerHTML = existingNote.note
-          }
+        if (existingNote) {
+          quillInstance.current.root.innerHTML = existingNote.note
         }
       }
     }
 
     initializeQuill()
-  }, [noteId])
+  }, [existingNote])
 
   return (
     <>
@@ -61,5 +55,8 @@ export default function QuillEditor({ noteId }) {
 }
 
 QuillEditor.propTypes = {
-  noteId: PropTypes.string,
+  existingNote: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    note: PropTypes.string.isRequired,
+  }),
 }

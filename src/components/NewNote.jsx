@@ -1,15 +1,14 @@
-import { useParams } from 'react-router-dom'
-
+import { useLoaderData } from 'react-router-dom'
 import QuillEditor from './QuillEditor'
 
 import '../styles/NewNote.css'
 
 export default function NewNote() {
-  const { noteId } = useParams()
+  const { note } = useLoaderData()
 
   return (
     <section id='new-note'>
-      <QuillEditor noteId={noteId} />
+      <QuillEditor existingNote={note} />
     </section>
   )
 }
