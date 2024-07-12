@@ -7,7 +7,7 @@ import Error from './components/Error.jsx'
 import Notes from './components/Notes.jsx'
 import NewNote from './components/NewNote.jsx'
 import NoteDetail from './components/NoteDetail.jsx'
-import { getAllNotes } from './utils/localforageHelpers.js'
+import { getAllNotes, getNoteById } from './utils/localforageHelpers.js'
 
 const router = createBrowserRouter([
   {
@@ -32,6 +32,7 @@ const router = createBrowserRouter([
       {
         path: ':noteId',
         element: <NoteDetail />,
+        loader: getNoteById,
       },
       {
         path: ':noteId/edit',

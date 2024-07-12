@@ -1,8 +1,7 @@
-import { useState, useEffect } from 'react'
-import { Link, useNavigate, useParams } from 'react-router-dom'
+import { useEffect, useState } from 'react'
+import { Link, useNavigate, useParams, useLoaderData } from 'react-router-dom'
 
 import {
-  getNoteById,
   archiveUnarchiveNote,
   deleteNoteById,
 } from '../utils/localforageHelpers'
@@ -10,16 +9,22 @@ import {
 import '../styles/NoteDetail.css'
 
 export default function NoteDetail() {
+  const { note: initialNote } = useLoaderData()
+  const [note, setNote] = useState(initialNote)
   const navigate = useNavigate()
   const { noteId } = useParams()
-  const [note, setNote] = useState(null)
-  const [loading, setLoading] = useState(true)
 
   const handleArchiveNote = async () => {
     try {
       await archiveUnarchiveNote(noteId)
-      const updatedNote = await getNoteById(noteId)
-      setNote(updatedNote)
+
+      setNote((prevNote) => ({
+        ...prevNote,
+        metadata: {
+          ...prevNote.metadata,
+          isArchived: !prevNote.metadata.isArchived,
+        },
+      }))
     } catch (error) {
       console.error('Failed to archive/unarchive note:', error)
     }
@@ -35,23 +40,8 @@ export default function NoteDetail() {
   }
 
   useEffect(() => {
-    const fetchNote = async () => {
-      try {
-        const fetchedNote = await getNoteById(noteId)
-        setNote(fetchedNote)
-      } catch (error) {
-        console.error('Failed to fetch note:', error)
-      } finally {
-        setLoading(false)
-      }
-    }
-
-    fetchNote()
-  }, [noteId])
-
-  if (loading) {
-    return <p>Loading...</p>
-  }
+    setNote(initialNote)
+  }, [initialNote])
 
   if (!note) {
     return <p>Note not found.</p>

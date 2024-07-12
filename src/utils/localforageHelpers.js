@@ -18,9 +18,14 @@ export const getAllNotes = async () => {
   return notes
 }
 
-export const getNoteById = async (noteId) => {
-  const note = await notesStore.getItem(noteId)
-  return note
+export const getNoteById = async ({ params }) => {
+  try {
+    const note = await notesStore.getItem(params.noteId)
+    return { note }
+  } catch (error) {
+    console.error('Failed to fetch a note:', error)
+    throw error // Melemparkan kembali error untuk ditangani di tempat yang memanggil fungsi ini
+  }
 }
 
 export const addNote = async (note) => {
