@@ -9,7 +9,7 @@ import {
 import '../styles/NoteDetail.css'
 
 export default function NoteDetail() {
-  const { note: initialNote } = useLoaderData()
+  const initialNote = useLoaderData()
   const [note, setNote] = useState(initialNote)
   const navigate = useNavigate()
   const { noteId } = useParams()
