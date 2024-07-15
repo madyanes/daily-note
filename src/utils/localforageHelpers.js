@@ -21,7 +21,7 @@ export const getAllNotes = async () => {
 export const getNoteById = async ({ params }) => {
   try {
     const note = await notesStore.getItem(params.noteId)
-    return { note }
+    return note
   } catch (error) {
     console.error('Failed to fetch a note:', error)
     throw error // Melemparkan kembali error untuk ditangani di tempat yang memanggil fungsi ini

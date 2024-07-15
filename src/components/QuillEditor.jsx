@@ -18,7 +18,7 @@ export default function QuillEditor({ existingNote }) {
       const note = quillInstance.current.root.innerHTML
       let result
 
-      if (existingNote) {
+      if (existingNote.note) {
         result = await updateNoteById(noteId, note)
       } else {
         result = await addNote(note)
@@ -35,7 +35,7 @@ export default function QuillEditor({ existingNote }) {
       if (!quillInstance.current && quillRef.current) {
         quillInstance.current = new Quill(quillRef.current, { theme: 'snow' })
 
-        if (existingNote) {
+        if (existingNote.note) {
           quillInstance.current.root.innerHTML = existingNote.note
         }
       }
@@ -56,7 +56,6 @@ export default function QuillEditor({ existingNote }) {
 
 QuillEditor.propTypes = {
   existingNote: PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    note: PropTypes.string.isRequired,
+    note: PropTypes.string,
   }),
 }
